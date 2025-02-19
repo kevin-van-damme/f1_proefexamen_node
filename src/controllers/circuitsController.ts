@@ -5,7 +5,11 @@ const { ValidationError } = MongooseError;
 
 export const getCircuits = async (req: Request, res: Response) => {
   try {
-    const circuits = await Circuit.find();
+    const searchQuery = req.query.search as string | undefined;
+    const filter = searchQuery
+      ? { name: { $regex: searchQuery, $options: "i" } }
+      : {};
+    const circuits = await Circuit.find(filter);
     res.status(200).json(circuits);
   } catch (error: unknown) {
     if (error instanceof Error) {

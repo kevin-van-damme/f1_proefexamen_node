@@ -5,7 +5,11 @@ const { ValidationError } = MongooseError;
 
 export const getDrivers = async (req: Request, res: Response) => {
   try {
-    const drivers = await Driver.find();
+    const searchQuery = req.query.search as string;
+    const filter = searchQuery
+      ? { name: { $regex: searchQuery, $options: "i" } }
+      : {};
+    const drivers = await Driver.find(filter);
     res.status(200).json(drivers);
   } catch (error: unknown) {
     if (error instanceof Error) {
