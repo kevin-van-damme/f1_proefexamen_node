@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Types } from "mongoose";
 
 const raceSchema = new mongoose.Schema({
   round: {
