@@ -3,10 +3,6 @@ import { Todo } from "../models/exampleModel";
 import { Error as MongooseError } from "mongoose";
 const { ValidationError } = MongooseError;
 
-export const getHelloWorld = (req: Request, res: Response) => {
-  res.status(200).json({ message: "Hello World!" });
-};
-
 export const getTodos = async (req: Request, res: Response) => {
   try {
     const todos = await Todo.find();

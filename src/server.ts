@@ -21,7 +21,10 @@ app.all("*", notFound);
 
 // Database connection
 try {
-  await mongoose.connect(process.env.MONGO_URI!);
+  if (!process.env.MONGO_URI_LIVE) {
+    console.log("no uri");
+  }
+  await mongoose.connect(process.env.MONGO_URI_LIVE!);
   console.log("Database connection OK");
 } catch (err) {
   console.error(err);

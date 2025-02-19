@@ -1,5 +1,4 @@
 import mongoose, { Mongoose } from "mongoose";
-import { url } from "node:inspector";
 
 const driverSchema = new mongoose.Schema(
   {
@@ -19,7 +18,7 @@ const driverSchema = new mongoose.Schema(
       trim: true,
     },
     url: {
-      type: url,
+      type: String,
       required: true,
       trim: true,
     },
@@ -44,7 +43,7 @@ const driverSchema = new mongoose.Schema(
       trim: true,
     },
     image: {
-      type: url,
+      type: String,
       required: true,
       trim: true,
     },
