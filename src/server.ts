@@ -6,12 +6,6 @@ import { notFound } from "./controllers/notFoundController";
 import testRoutes from "./routes/exampleRoutes";
 import { helloMiddleware } from "./middleware/exampleMiddleware";
 import mongoose from "mongoose";
-import { getTeams } from "./controllers/teamsController";
-import { Driver } from "./models/driverModel";
-import { Team } from "./models/teamModel";
-import { getDrivers } from "./controllers/driversController";
-import { Circuit } from "./models/circuitModel";
-import { Race } from "./models/raceModel";
 
 // Variables
 const app = express();
@@ -21,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// ROUtes
+// Routes
 app.use("/api", helloMiddleware, testRoutes);
 app.all("*", notFound);
 

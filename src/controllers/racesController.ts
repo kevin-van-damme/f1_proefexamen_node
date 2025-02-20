@@ -1,8 +1,12 @@
 import { Request, Response } from "express";
 import { Race } from "../models/raceModel";
 import { Driver } from "../models/driverModel";
+import timeFormat from "../utilities/timeFormat";
 import { Error as MongooseError } from "mongoose";
+
 export const getRaces = async (req: Request, res: Response) => {
+  const formattedTime = timeFormat(123456, true, 1);
+  console.log(formattedTime);
   try {
     const races = await Race.find();
     // Stap 2: Verzamel alle unieke driver_ids uit alle races
@@ -25,9 +29,15 @@ export const getRaces = async (req: Request, res: Response) => {
     const racesWithDriverDetails = races.map((race) => {
       const raceResultsWithDriverDetails = race.race_results.map((result) => {
         const driverDetails = driverMap.get(result.driver_id);
+        const formatTime = timeFormat(
+          result.time,
+          req.query.format === "true",
+          result.position
+        );
         return {
-          ...result.toObject(), // Mongoose-document omzetten naar JS-object
-          driver_id: driverDetails || null, // Voeg driver details (incl. vlag) toe of null als de coureur niet bestaat
+          ...result.toObject(),
+          driver_id: driverDetails || null,
+          time: formatTime,
         };
       });
       return {
